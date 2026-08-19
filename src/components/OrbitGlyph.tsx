@@ -15,9 +15,9 @@ function Gyro({ id }: { id: string }) {
     <>
       <defs>
         <linearGradient id={`${id}-a`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#B600A8" />
-          <stop offset="60%" stopColor="#7621B0" />
-          <stop offset="100%" stopColor="#BE4C00" />
+          <stop offset="0%" stopColor="#12A594" />
+          <stop offset="60%" stopColor="#0E8F94" />
+          <stop offset="100%" stopColor="#16BFC4" />
         </linearGradient>
       </defs>
       <ellipse cx="60" cy="60" rx="46" ry="18" stroke={`url(#${id}-a)`} strokeWidth="2.5" fill="none" transform="rotate(-18 60 60)" />
@@ -34,8 +34,8 @@ function Lattice({ id }: { id: string }) {
     <>
       <defs>
         <linearGradient id={`${id}-b`} x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0%" stopColor="#7621B0" />
-          <stop offset="100%" stopColor="#BE4C00" />
+          <stop offset="0%" stopColor="#0E8F94" />
+          <stop offset="100%" stopColor="#16BFC4" />
         </linearGradient>
       </defs>
       <path d="M60 16 106 42v52L60 120 14 94V42Z" stroke={`url(#${id}-b)`} strokeWidth="2.2" fill="none" strokeLinejoin="round" />
@@ -53,8 +53,8 @@ function Helix({ id }: { id: string }) {
     <>
       <defs>
         <linearGradient id={`${id}-c`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#B600A8" />
-          <stop offset="100%" stopColor="#BE4C00" />
+          <stop offset="0%" stopColor="#12A594" />
+          <stop offset="100%" stopColor="#16BFC4" />
         </linearGradient>
       </defs>
       <path d="M34 14c0 24 52 24 52 48s-52 24-52 48" stroke={`url(#${id}-c)`} strokeWidth="2.4" fill="none" strokeLinecap="round" />
@@ -78,8 +78,8 @@ function Graph({ id }: { id: string }) {
     <>
       <defs>
         <linearGradient id={`${id}-d`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#B600A8" />
-          <stop offset="100%" stopColor="#7621B0" />
+          <stop offset="0%" stopColor="#12A594" />
+          <stop offset="100%" stopColor="#0E8F94" />
         </linearGradient>
       </defs>
       <path d="M60 22 26 60m34-38 34 36M26 60l16 40m52-42-12 44M42 100h40" stroke={STROKE} strokeWidth="1.5" fill="none" />

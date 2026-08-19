@@ -36,7 +36,7 @@
   }
 
   ::selection {
-    background: #b600a8;
+    background: #12a594;
     color: #ffffff;
   }
 
@@ -48,7 +48,7 @@
 
   /* The white Practice section flips the selection + focus colours so they stay legible. */
   .on-light ::selection {
-    background: #be4c00;
+    background: #16bfc4;
     color: #ffffff;
   }
 

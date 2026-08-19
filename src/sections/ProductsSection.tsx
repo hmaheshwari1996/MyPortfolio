@@ -100,7 +100,7 @@ function ProductCard({ product, index, total, progress, reduced }: CardProps) {
             className="relative flex flex-col overflow-hidden rounded-[40px] border border-bone/12 p-6 sm:rounded-[50px] sm:p-9 md:w-[60%] md:rounded-[60px]"
             style={{
               background:
-                'radial-gradient(120% 90% at 82% 6%, rgba(182,0,168,0.20) 0%, rgba(118,33,176,0.11) 34%, rgba(12,12,12,0) 68%), radial-gradient(90% 70% at 10% 100%, rgba(190,76,0,0.16) 0%, rgba(12,12,12,0) 62%)',
+                'radial-gradient(120% 90% at 82% 6%, rgba(18, 165, 148,0.20) 0%, rgba(14, 143, 148,0.11) 34%, rgba(12,12,12,0) 68%), radial-gradient(90% 70% at 10% 100%, rgba(22, 191, 196,0.16) 0%, rgba(12,12,12,0) 62%)',
               minHeight: 'clamp(220px, 30vw, 420px)',
             }}
           >

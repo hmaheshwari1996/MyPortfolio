@@ -43,10 +43,10 @@ const float PI  = 3.14159265;
 const float TAU = 6.28318531;
 
 /* CTA-gradient palette, linearised (approx. sRGB^2.2) */
-const vec3 KEY_L  = vec3(0.477, 0.000, 0.400);   /* #B600A8 magenta key   */
-const vec3 RIM_L  = vec3(0.523, 0.070, 0.000);   /* #BE4C00 burnt orange  */
+const vec3 KEY_L  = vec3(0.003, 0.384, 0.302);   /* #12A594 teal key       */
+const vec3 RIM_L  = vec3(0.752, 0.374, 0.045);   /* #E0A33E warm amber rim */
 const vec3 FILL_L = vec3(0.127, 0.142, 0.173);   /* #646973 cool fill     */
-const vec3 VIO_L  = vec3(0.184, 0.011, 0.442);   /* #7621B0 violet        */
+const vec3 VIO_L  = vec3(0.002, 0.205, 0.177);   /* #0E7C74 deep teal fill */
 
 /* pre-normalised light + environment-lobe directions (GLSL ES 1.00 requires
    constant expressions for global initialisers, so no normalize() here) */
@@ -887,7 +887,7 @@ const FALLBACK_GLOW: CSSProperties = {
   position: 'absolute',
   inset: '-10%',
   background:
-    'radial-gradient(circle at 50% 48%, rgba(182,0,168,0.20) 0%, rgba(118,33,176,0.12) 32%, rgba(190,76,0,0.06) 52%, rgba(12,12,12,0) 72%)',
+    'radial-gradient(circle at 50% 48%, rgba(18, 165, 148,0.20) 0%, rgba(14, 143, 148,0.12) 32%, rgba(22, 191, 196,0.06) 52%, rgba(12,12,12,0) 72%)',
   pointerEvents: 'none',
 };
 
@@ -910,8 +910,8 @@ const FALLBACK_CORE: CSSProperties = {
   height: '17%',
   transform: 'rotate(45deg)',
   borderRadius: '14%',
-  background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
-  boxShadow: '0 0 42px -4px rgba(182,0,168,0.55)',
+  background: 'linear-gradient(123deg, #04201F 7%, #12A594 37%, #0E8F94 72%, #16BFC4 100%)',
+  boxShadow: '0 0 42px -4px rgba(18, 165, 148,0.55)',
   pointerEvents: 'none',
 };
 
@@ -920,8 +920,8 @@ function HeroObjectFallback({ className }: HeroObjectProps): JSX.Element {
     <div className={className} style={FALLBACK_WRAP} aria-hidden="true" role="presentation">
       <div style={FALLBACK_GLOW} />
       <div style={fallbackRing(72, -18, 0.34, 'rgba(187,204,215,0.34)')} />
-      <div style={fallbackRing(56, 26, 0.42, 'rgba(182,0,168,0.42)')} />
-      <div style={fallbackRing(40, 72, 0.5, 'rgba(190,76,0,0.38)')} />
+      <div style={fallbackRing(56, 26, 0.42, 'rgba(18, 165, 148,0.42)')} />
+      <div style={fallbackRing(40, 72, 0.5, 'rgba(22, 191, 196,0.38)')} />
       <div style={FALLBACK_CORE} />
     </div>
   );

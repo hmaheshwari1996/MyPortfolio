@@ -8,9 +8,10 @@ export default {
         bone: '#D7E2EA',
         steel: '#646973',
         mist: '#BBCCD7',
-        magenta: '#B600A8',
-        violet: '#7621B0',
-        ember: '#BE4C00',
+        signal: '#12A594',
+        'signal-deep': '#0E8F94',
+        'signal-bright': '#16BFC4',
+        warm: '#E0A33E',
       },
       fontFamily: {
         sans: ['Kanit', 'ui-sans-serif', 'system-ui', 'sans-serif'],

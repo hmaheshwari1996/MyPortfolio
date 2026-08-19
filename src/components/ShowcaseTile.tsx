@@ -17,9 +17,9 @@ const INK = '#D7E2EA';
 const HAIR = 'rgba(215,226,234,0.10)';
 
 /* accents pulled from the CTA gradient — used at most twice per tile */
-const A1 = '#B600A8';
-const A2 = '#7621B0';
-const A3 = '#BE4C00';
+const A1 = '#12A594';
+const A2 = '#0E8F94';
+const A3 = '#16BFC4';
 
 const seq = (n: number): number[] => Array.from({ length: n }, (_, i) => i);
 

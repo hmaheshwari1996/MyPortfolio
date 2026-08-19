@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 
 const CTA_GRADIENT =
-  'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)'
+  'linear-gradient(123deg, #04201F 7%, #12A594 37%, #0E8F94 72%, #16BFC4 100%)'
 
 export type ContactButtonProps = {
   href?: string
@@ -26,7 +26,7 @@ export function ContactButton({
       style={{
         background: CTA_GRADIENT,
         boxShadow:
-          '0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset',
+          '0px 4px 4px rgba(18, 165, 148, 0.25), 4px 4px 12px #0E8F94 inset',
       }}
     >
       {label}
