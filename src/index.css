@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    /* ramps 24px -> 40px between 768px and 1280px viewports, continuously */
+    --hero-gutter: clamp(1.5rem, 3.125vw, 2.5rem);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body,
+  #root {
+    background: #0c0c0c;
+  }
+
+  body {
+    font-family: 'Kanit', ui-sans-serif, system-ui, sans-serif;
+    color: #d7e2ea;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: #b600a8;
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #d7e2ea;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* The white Practice section flips the selection + focus colours so they stay legible. */
+  .on-light ::selection {
+    background: #be4c00;
+    color: #ffffff;
+  }
+
+  .on-light :focus-visible {
+    outline-color: #0c0c0c;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Vertical steel-to-mist gradient clipped to the glyphs. Used by every display heading. */
+  .hero-heading {
+    background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /*
+    The wordmark is sized to span the column exactly rather than guessed in vw.
+    "HI, I’M HARSHIT" measures 6.7129em wide in Kanit 900 at -0.045em tracking
+    (the typographic apostrophe is wider than the straight one), so dividing the
+    available width by 6.78 fills the line with about 2px of ink clearance at
+    every viewport. Change the name — or the apostrophe — and this divisor has
+    to be re-measured, or the last glyph gets clipped by the overflow-hidden.
+  */
+  /*
+    One continuous gutter for the whole hero. A stepped px-6 -> md:px-10 made the
+    wordmark shrink as the window widened across 768px, because the gutter jumped
+    16px in one frame while the type scaled smoothly.
+  */
+  .hero-gutter {
+    padding-inline: var(--hero-gutter);
+  }
+
+  .wordmark {
+    font-size: calc((100vw - 2 * var(--hero-gutter)) / 6.78);
+  }
+
+  /*
+    The CTA's resting white ring lives here rather than inline, because an inline
+    outline outranks every stylesheet rule and would leave the page's only
+    conversion control with no visible focus state at all.
+  */
+  .cta-pill {
+    outline: 2px solid #ffffff;
+    outline-offset: -3px;
+  }
+
+  .cta-pill:focus-visible {
+    outline: 2px solid #d7e2ea;
+    outline-offset: 3px;
+  }
+
+  /* Landscape phones: let the hero collapse so the name and the CTA stay above the fold. */
+  @media (max-height: 500px) and (max-width: 1400px) {
+    .hero-shell {
+      min-height: 100svh;
+    }
+  }
+
+  /* Hairline that fades out at both ends — used between list rows on the dark ground. */
+  .rule-fade {
+    background: linear-gradient(
+      90deg,
+      rgba(215, 226, 234, 0) 0%,
+      rgba(215, 226, 234, 0.18) 12%,
+      rgba(215, 226, 234, 0.18) 88%,
+      rgba(215, 226, 234, 0) 100%
+    );
+  }
+}
