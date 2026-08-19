@@ -77,21 +77,36 @@ export default function AboutSection() {
           style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
         />
 
+        {/*
+          Four bordered cards, not floating numerals: the value is the hook, the
+          label names it, and `detail` is the sentence that makes it mean
+          something. One column at 320, two at sm, four at lg.
+        */}
         <FadeIn
           delay={0.2}
           y={24}
-          className="grid w-full max-w-3xl grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4"
+          className="grid w-full max-w-md grid-cols-1 gap-4 sm:max-w-3xl sm:grid-cols-2 sm:gap-5 lg:max-w-5xl lg:grid-cols-4"
         >
           {STATS.map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center gap-1 text-center">
+            <div
+              key={stat.label}
+              className="flex h-full flex-col gap-3 rounded-[28px] border border-bone/12 bg-bone/[0.035] p-5 sm:rounded-[32px] sm:p-6"
+            >
               <span
                 className="hero-heading font-black leading-none tracking-tight"
-                style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontVariantNumeric: 'tabular-nums' }}
+                style={{
+                  fontSize: 'clamp(2.1rem, 4.2vw, 3rem)',
+                  fontVariantNumeric: 'tabular-nums',
+                }}
               >
                 {stat.value}
               </span>
-              <span className="text-[0.66rem] font-light uppercase leading-tight tracking-[0.18em] text-bone/55 sm:text-xs">
+              <span aria-hidden className="h-[2px] w-8 bg-signal/80" />
+              <span className="text-[0.68rem] font-light uppercase leading-tight tracking-[0.18em] text-bone/75 sm:text-xs">
                 {stat.label}
+              </span>
+              <span className="text-[0.74rem] font-light leading-relaxed text-bone/55 sm:text-xs">
+                {stat.detail}
               </span>
             </div>
           ))}

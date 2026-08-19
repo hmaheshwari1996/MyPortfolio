@@ -1,8 +1,12 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import FadeIn from '../components/FadeIn'
+import ProductFrame from '../components/ProductFrame'
 import { GhostButton } from '../components/Buttons'
 import { PRODUCTS, SHIPPED, type Product } from '../content/profile'
+
+/** Each product gets its own window vignette; the list is fixed at three. */
+const frameVariant = (index: number): 0 | 1 | 2 => (index % 3) as 0 | 1 | 2
 
 /**
  * Cards stack rather than scroll past: each one pins under the last and shrinks
@@ -60,9 +64,43 @@ function ProductCard({ product, index, total, progress, reduced }: CardProps) {
           </GhostButton>
         </header>
 
-        <div className="flex flex-col gap-3 md:flex-row">
-          <div className="flex flex-col gap-3 md:w-[40%]">
-            <div className="flex flex-1 flex-col justify-start gap-4 rounded-[40px] border border-bone/12 bg-bone/[0.04] p-5 sm:rounded-[50px] sm:p-7 md:rounded-[60px]">
+        <div className="flex flex-col gap-3 md:flex-row md:items-stretch">
+          <div className="md:w-[40%]">
+            <ProductFrame title={product.name} variant={frameVariant(index)} />
+          </div>
+
+          <div
+            className="relative flex flex-col gap-7 overflow-hidden rounded-[40px] border border-bone/12 p-6 sm:gap-9 sm:rounded-[50px] sm:p-9 md:w-[60%] md:rounded-[60px]"
+            style={{
+              background:
+                'radial-gradient(120% 90% at 82% 6%, rgba(18, 165, 148,0.20) 0%, rgba(14, 143, 148,0.11) 34%, rgba(12,12,12,0) 68%), radial-gradient(90% 70% at 10% 100%, rgba(22, 191, 196,0.16) 0%, rgba(12,12,12,0) 62%)',
+            }}
+          >
+            <p
+              className="max-w-[42ch] font-light leading-snug text-bone"
+              style={{ fontSize: 'clamp(1rem, 1.9vw, 1.5rem)' }}
+            >
+              {product.summary}
+            </p>
+
+            <ul className="flex flex-col gap-4">
+              {product.highlights.map((line, i) => (
+                <li key={line} className="flex gap-3 sm:gap-4">
+                  <span
+                    aria-hidden="true"
+                    className="w-5 shrink-0 pt-[3px] text-[0.62rem] font-light tracking-widest text-bone/55"
+                    style={{ fontVariantNumeric: 'tabular-nums' }}
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="text-xs font-light leading-relaxed text-bone/75 sm:text-sm">
+                    {line}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-auto flex flex-col gap-3 pt-1">
               <span className="text-[0.62rem] font-light uppercase tracking-[0.22em] text-bone/55">
                 Built with
               </span>
@@ -77,42 +115,6 @@ function ProductCard({ product, index, total, progress, reduced }: CardProps) {
                 ))}
               </ul>
             </div>
-
-            <div className="flex flex-1 flex-col justify-start gap-4 rounded-[40px] border border-bone/12 bg-bone/[0.04] p-5 sm:rounded-[50px] sm:p-7 md:rounded-[60px]">
-              {product.highlights.map((line, i) => (
-                <div key={line} className="flex gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="w-5 shrink-0 pt-0.5 text-[0.62rem] font-light tracking-widest text-bone/55"
-                    style={{ fontVariantNumeric: 'tabular-nums' }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span className="text-xs font-light leading-relaxed text-bone/75 sm:text-sm">
-                    {line}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div
-            className="relative flex flex-col overflow-hidden rounded-[40px] border border-bone/12 p-6 sm:rounded-[50px] sm:p-9 md:w-[60%] md:rounded-[60px]"
-            style={{
-              background:
-                'radial-gradient(120% 90% at 82% 6%, rgba(18, 165, 148,0.20) 0%, rgba(14, 143, 148,0.11) 34%, rgba(12,12,12,0) 68%), radial-gradient(90% 70% at 10% 100%, rgba(22, 191, 196,0.16) 0%, rgba(12,12,12,0) 62%)',
-              minHeight: 'clamp(220px, 30vw, 420px)',
-            }}
-          >
-            <p
-              className="my-auto max-w-[36ch] font-light leading-snug text-bone"
-              style={{ fontSize: 'clamp(1rem, 2.1vw, 1.65rem)' }}
-            >
-              {product.summary}
-            </p>
-            <span className="mt-6 self-end text-[0.62rem] font-light uppercase tracking-[0.22em] text-bone/55">
-              {product.kind}
-            </span>
           </div>
         </div>
       </motion.article>

@@ -44,22 +44,48 @@ export type GhostButtonProps = {
   children?: ReactNode
   className?: string
   onLight?: boolean
+  /**
+   * `md` is the product-card geometry and stays the default, so adding this
+   * prop cannot move any existing call site. `sm` is the lighter pill used
+   * beside the hero CTA, where three controls have to share one line.
+   */
+  size?: 'sm' | 'md'
+  target?: string
+  rel?: string
 }
 
-/** Outline pill used for secondary actions on the product cards. */
+/**
+ * Outline pill used for secondary actions: live-project links on the product
+ * cards, and the profile links beside the hero CTA.
+ *
+ * Focus is deliberately left to the global `:focus-visible` rule in index.css —
+ * no inline outline here, or it would outrank the stylesheet and kill the ring.
+ */
 export function GhostButton({
   href = '#contact',
   children = 'Live Project',
   className = '',
   onLight = false,
+  size = 'md',
+  target,
+  rel,
 }: GhostButtonProps) {
   const tone = onLight
     ? 'border-ink text-ink hover:bg-ink/10'
     : 'border-bone text-bone hover:bg-bone/10'
+  const geometry =
+    size === 'sm'
+      ? // Holds the compact geometry all the way to lg on purpose: at 768–1023px
+        // the hero row is CTA + two of these on one line, and stepping up at sm
+        // pushed the third pill onto a second line, over the wordmark.
+        'border px-4 py-2.5 text-xs lg:px-5 lg:py-3 lg:text-sm'
+      : 'border-2 px-6 py-3 text-sm sm:px-10 sm:py-3.5 sm:text-base'
   return (
     <a
       href={href}
-      className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border-2 px-6 py-3 text-sm font-medium uppercase tracking-widest transition-colors duration-300 sm:px-10 sm:py-3.5 sm:text-base ${tone} ${className}`}
+      target={target}
+      rel={rel}
+      className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full font-medium uppercase tracking-widest transition-colors duration-300 ${geometry} ${tone} ${className}`}
     >
       {children}
     </a>

@@ -21,7 +21,12 @@ export interface Person {
   phone: string;
   linkedin: string;
   linkedinUrl: string;
+  github: string;
+  githubUrl: string;
   location: string;
+  /** Served from public/. Nav download link. */
+  resumeUrl: string;
+  resumeLabel: string;
 }
 
 export const PERSON: Person = {
@@ -35,9 +40,13 @@ export const PERSON: Person = {
   phone: '[redacted]',
   linkedin: 'linkedin.com/in/hmaheshwari96',
   linkedinUrl: 'https://www.linkedin.com/in/hmaheshwari96',
+  github: 'github.com/hmaheshwari1996',
+  githubUrl: 'https://github.com/hmaheshwari1996',
   // City unconfirmed — the CV states no location. Widened to the country until
   // Harshit confirms it; set the real city here once known.
   location: 'India',
+  resumeUrl: '/Harshit-Maheshwari-Resume.pdf',
+  resumeLabel: 'resume.pdf',
 };
 
 /* --------------------------------------------------------------- navigation */
@@ -67,15 +76,62 @@ export const ABOUT_PARAGRAPH =
 
 export interface Stat {
   value: string;
+  /** Short noun phrase. 34 characters or fewer. */
   label: string;
+  /** One line explaining why the number matters. 90 characters or fewer. */
+  detail: string;
 }
 
+/**
+ * Scope and reach, not tenure. Every value below is a count the CV states
+ * outright — four group companies, a ten-person team, three Easyfix surfaces,
+ * seven AI tools evaluated. The CV contains no outcome metrics (no users,
+ * revenue, uptime, latency or percentages) and none are invented here.
+ */
 export const STATS: Stat[] = [
-  { value: '6+', label: 'Years in the work' },
-  { value: '10', label: 'Engineers and QA led' },
-  { value: '4', label: 'Companies on my platforms' },
-  { value: '7', label: 'AI tools evaluated' },
+  {
+    value: '4',
+    label: 'Companies on my platforms',
+    detail: 'Channelplay, Easyfix, Audecy and Fidelity, in service every working day.',
+  },
+  {
+    value: '10',
+    label: 'Engineers and QA I lead',
+    detail: 'Eight engineers and two QA, from scoping through release and review.',
+  },
+  {
+    value: '3',
+    label: 'Surfaces off the monolith',
+    detail: 'Website, technician app and client portal, migrating off legacy Struts2.',
+  },
+  {
+    value: '7',
+    label: 'AI tools evaluated in practice',
+    detail: 'Devin, Windsurf, Claude Code, Gemini CLI, Jules, Tabnine, Replit — then standardised.',
+  },
 ];
+
+/* ---------------------------------------------------------------------------
+ * REAL METRICS — HARSHIT, FILL THESE IN.
+ *
+ * The four cards above are counts, not outcomes, because the CV states no
+ * outcome numbers. Three numbers would hit far harder and only you can supply
+ * them. When you have one, paste the object into STATS above and delete the
+ * weakest card (start with "7 / AI tools evaluated in practice").
+ *
+ *   1. People actually using the Easyfix platforms:
+ *      { value: '__', label: 'People on the platforms', detail: 'Technicians, clients and staff working in Easyfix every day.' },
+ *
+ *   2. Jobs or support tickets processed per month:
+ *      { value: '__', label: 'Jobs processed a month', detail: 'Booked, assigned and closed through the platforms I own.' },
+ *
+ *   3. The Azure log-ingestion saving, as a percentage or a rupee figure:
+ *      { value: '__%', label: 'Cut from log-ingestion spend', detail: 'Found by reading the Log Analytics bill, not by guessing.' },
+ *
+ * Rules if you edit these: value stays short (4 characters or so), label is a
+ * noun phrase of 34 characters or fewer, detail is one line of 90 or fewer.
+ * Do not put a number here you cannot defend in an interview.
+ * ------------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------- practice */
 
@@ -240,6 +296,12 @@ export interface TimelineEntry {
   companyPeriod: string;
   roles: TimelineRole[];
   note: string;
+  /**
+   * Exactly three, 130 characters or fewer each. Deliberately company-level:
+   * the CV describes achievements per company and per theme, never per job
+   * title, so attributing a bullet to one role would be invention.
+   */
+  highlights: string[];
 }
 
 export const TIMELINE: TimelineEntry[] = [
@@ -252,7 +314,12 @@ export const TIMELINE: TimelineEntry[] = [
       { title: 'Sr. Software Engineer', period: 'Apr 2023 — Apr 2025' },
       { title: 'Software Engineer', period: 'May 2022 — Apr 2023' },
     ],
-    note: 'Three promotions in four years, as scope moved from feature delivery to owning the product-to-production lifecycle across Channelplay, Easyfix, Audecy and Fidelity.',
+    note: 'Product-to-production ownership across Channelplay and its group companies — Easyfix, Audecy and Fidelity.',
+    highlights: [
+      'Three promotions in four years, as ownership moved from feature delivery to the whole product-to-production lifecycle.',
+      'Led the organisation-wide move to AI-first development: seven tools evaluated, then the workflows, review gates and quality bar.',
+      'On the AWS-to-Azure migration team, and cut Container Apps log-ingestion cost by isolating the two services driving volume.',
+    ],
   },
   {
     company: 'Yatra Online Pvt. Ltd.',
@@ -262,7 +329,12 @@ export const TIMELINE: TimelineEntry[] = [
       { title: 'Software Engineer — QA', period: 'Aug 2020 — Nov 2021' },
       { title: 'QA Intern', period: 'Feb 2020 — Aug 2020' },
     ],
-    note: 'Payments and release quality: Zaakpay, Paytm and ICICI gateways integrated to PCI requirements, reconciliation automated, and Selenium regression suites across web and mobile booking.',
+    note: 'Started in QA and moved into development — where I learned to treat release quality as part of the product, not a stage after it.',
+    highlights: [
+      'Integrated the Zaakpay, Paytm and ICICI payment gateways into Yatra’s booking platform, meeting PCI compliance requirements.',
+      'Automated daily payment reconciliation reporting on scheduled Cron jobs, replacing a manual process.',
+      'Built Selenium regression suites across web and mobile booking flows, improving release reliability and cutting manual QA.',
+    ],
   },
 ];
 
@@ -273,6 +345,13 @@ export interface CapabilityGroup {
   items: string[];
 }
 
+/**
+ * Six groups, eight chips at most. Deliberately trimmed: generic engineering
+ * tooling every engineer has (Git, Maven, Postman, Insomnia, IntelliJ) is out,
+ * and the language list is cut to what a product architect is hired for.
+ * Struts2 stays — it is the legacy the Easyfix migration is moving off, which
+ * is the story, not a skill claim.
+ */
 export const CAPABILITIES: CapabilityGroup[] = [
   {
     group: 'Product & architecture',
@@ -302,9 +381,6 @@ export const CAPABILITIES: CapabilityGroup[] = [
       'Gemini CLI',
       'Windsurf',
       'Devin',
-      'Google Jules',
-      'Tabnine',
-      'Replit',
       'Prompt engineering',
       'Agentic workflow design',
       'AI code review & quality gates',
@@ -328,30 +404,16 @@ export const CAPABILITIES: CapabilityGroup[] = [
       'Java',
       'Spring',
       'Struts2',
-      'Hibernate',
       'Microservices',
       'REST APIs',
-      'JavaScript / TypeScript',
-      'React',
-      'React Native',
+      'TypeScript',
+      'React / React Native',
       'Next.js',
-      'Express.js',
-      'Python',
-      'Flutter',
     ],
   },
   {
-    group: 'Data & tooling',
-    items: [
-      'MySQL',
-      'PostgreSQL / Redshift',
-      'Supabase',
-      'Git',
-      'Maven',
-      'Postman',
-      'Insomnia',
-      'IntelliJ',
-    ],
+    group: 'Data',
+    items: ['MySQL', 'PostgreSQL / Redshift', 'Supabase', 'Hibernate'],
   },
 ];
 

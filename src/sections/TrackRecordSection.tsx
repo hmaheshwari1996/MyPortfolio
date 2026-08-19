@@ -44,44 +44,73 @@ export default function TrackRecordSection() {
                 </p>
               </div>
 
-              <ol className="flex flex-col">
-                {entry.roles.map((role) => (
-                  <li
-                    key={role.title + role.period}
-                    className="flex flex-col gap-1 border-b border-bone/8 py-3 last:border-b-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
-                  >
-                    <span className="text-sm font-light leading-snug text-bone/85 sm:text-base">
-                      {role.title}
-                    </span>
-                    <span
-                      className="shrink-0 text-[0.68rem] font-light uppercase tracking-[0.16em] text-bone/55 sm:text-xs"
-                      style={{ fontVariantNumeric: 'tabular-nums' }}
+              <div className="flex flex-col gap-6">
+                <ol className="flex flex-col">
+                  {entry.roles.map((role) => (
+                    <li
+                      key={role.title + role.period}
+                      className="flex flex-col gap-1 border-b border-bone/8 py-3 last:border-b-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
                     >
-                      {role.period}
-                    </span>
-                  </li>
-                ))}
-              </ol>
+                      <span className="text-sm font-light leading-snug text-bone/85 sm:text-base">
+                        {role.title}
+                      </span>
+                      <span
+                        className="shrink-0 text-[0.68rem] font-light uppercase tracking-[0.16em] text-bone/55 sm:text-xs"
+                        style={{ fontVariantNumeric: 'tabular-nums' }}
+                      >
+                        {role.period}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+
+                {/*
+                  The evidence under the progression. Sits in the right column,
+                  directly beneath the roles it substantiates, so the claim in
+                  the left rail is never left unbacked.
+                */}
+                <ul className="flex flex-col gap-2.5">
+                  {entry.highlights.map((highlight) => (
+                    <li key={highlight} className="flex items-start gap-3">
+                      <span
+                        aria-hidden
+                        className="mt-[0.5em] h-1.5 w-1.5 shrink-0 rotate-45 bg-signal"
+                      />
+                      <span className="text-xs font-light leading-relaxed text-bone/65 sm:text-sm">
+                        {highlight}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </FadeIn>
           ))}
         </div>
 
-        <div className="mt-20 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {/*
+          Capability groups as objects rather than a flat chip wall. `h-full` on
+          both the FadeIn wrapper and the card keeps a row level even when one
+          group carries fewer chips than its neighbour.
+        */}
+        <div className="mt-20 grid items-stretch gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {CAPABILITIES.map((group, i) => (
-            <FadeIn key={group.group} delay={i * 0.07} y={20} className="flex flex-col gap-3">
-              <h3 className="text-[0.62rem] font-light uppercase tracking-[0.26em] text-bone/55">
-                {group.group}
-              </h3>
-              <ul className="flex flex-wrap gap-1.5">
-                {group.items.map((item) => (
-                  <li
-                    key={item}
-                    className="rounded-full border border-bone/12 px-3 py-1 text-[0.7rem] font-light text-bone/65 sm:text-xs"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            <FadeIn key={group.group} delay={i * 0.07} y={20} className="h-full">
+              <div className="flex h-full flex-col gap-4 rounded-[28px] border border-bone/12 bg-bone/[0.035] p-5 sm:rounded-[32px] sm:p-6">
+                <h3 className="flex items-center gap-2.5 text-[0.62rem] font-light uppercase tracking-[0.26em] text-bone/75">
+                  <span aria-hidden className="h-1.5 w-1.5 shrink-0 bg-signal" />
+                  {group.group}
+                </h3>
+                <ul className="flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-full border border-bone/12 px-3 py-1 text-[0.7rem] font-light text-bone/65 sm:text-xs"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </FadeIn>
           ))}
         </div>

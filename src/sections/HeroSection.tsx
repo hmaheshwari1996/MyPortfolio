@@ -1,8 +1,17 @@
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import FadeIn from '../components/FadeIn'
 import Magnet from '../components/Magnet'
 import HeroObject from '../components/HeroObject'
-import { ContactButton } from '../components/Buttons'
+import { ContactButton, GhostButton } from '../components/Buttons'
 import { NAV, PERSON } from '../content/profile'
+
+/**
+ * The resume PDF is served out of public/, which only the multi-asset build
+ * emits. `npm run build:single` inlines everything into one index.html and has
+ * no public/ directory at all, so the link would 404 there — the pill is
+ * omitted from that build rather than shipped broken.
+ */
+const HAS_RESUME_ASSET = import.meta.env.MODE !== 'single'
 
 /**
  * Full-viewport opening. Three layers: the nav and wordmark on top, the
@@ -19,17 +28,41 @@ export default function HeroSection() {
         as="nav"
         delay={0}
         y={-20}
-        className="hero-gutter relative z-20 flex items-center justify-between pt-6 md:pt-8"
+        className="hero-gutter relative z-20 flex items-center justify-between gap-6 pt-6 md:gap-10 md:pt-8"
       >
-        {NAV.map((item) => (
+        {/*
+          The four section links keep their edge-to-edge spread — that spacing is
+          the nav's whole character — so the group takes the remaining width and
+          distributes them itself. The resume pill is a different kind of object
+          and sits outside that rhythm, past the nav gap, at the right edge.
+        */}
+        <div className="flex flex-1 items-center justify-between gap-4">
+          {NAV.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium uppercase tracking-wider text-bone transition-opacity duration-200 hover:opacity-70 md:text-lg lg:text-[1.4rem]"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+
+        {HAS_RESUME_ASSET && (
+          /*
+            Hidden below sm: at 375px the four links already fill the gutter to
+            within a few pixels, so a fifth object there would force them to
+            collide or wrap.
+          */
           <a
-            key={item.href}
-            href={item.href}
-            className="text-sm font-medium uppercase tracking-wider text-bone transition-opacity duration-200 hover:opacity-70 md:text-lg lg:text-[1.4rem]"
+            href={PERSON.resumeUrl}
+            download
+            className="hidden shrink-0 items-center gap-1.5 rounded-full border border-signal/45 bg-signal/[0.07] px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-bone/85 transition-colors duration-200 hover:border-signal hover:bg-signal/15 hover:text-bone sm:inline-flex md:px-4 md:py-2 md:text-sm"
           >
-            {item.label}
+            {PERSON.resumeLabel}
+            <ArrowDown className="h-3.5 w-3.5 text-signal-bright" strokeWidth={2} aria-hidden="true" />
           </a>
-        ))}
+        )}
       </FadeIn>
 
       {/*
@@ -52,7 +85,13 @@ export default function HeroSection() {
           </h1>
         </FadeIn>
 
-        <div className="hero-gutter flex items-end justify-between gap-6 pb-7 sm:pb-8 md:pb-10">
+        {/*
+          Below md the three actions cannot share a line with the copy without
+          crowding it, so the row becomes a stack and the actions wrap on their
+          own full-width line; from md up it is the original copy-left /
+          actions-right arrangement, with the actions held to one line.
+        */}
+        <div className="hero-gutter flex flex-col items-start gap-5 pb-7 sm:pb-8 md:flex-row md:items-end md:justify-between md:gap-6 md:pb-10">
           <FadeIn delay={0.35} y={20} className="flex max-w-[160px] flex-col gap-2 sm:max-w-[210px] md:max-w-[240px] lg:max-w-[300px] xl:max-w-[380px]">
             <span
               className="font-medium uppercase leading-tight tracking-[0.16em] text-bone"
@@ -68,8 +107,36 @@ export default function HeroSection() {
             </p>
           </FadeIn>
 
-          <FadeIn delay={0.5} y={20}>
+          <FadeIn
+            delay={0.5}
+            y={20}
+            /*
+              md:shrink-0 keeps the three actions on one line and lets the copy
+              column absorb the shortfall instead; without it the 768–1023px
+              range drops LinkedIn onto a second row that rides up into the
+              wordmark.
+            */
+            className="flex flex-wrap items-center gap-2.5 md:shrink-0 md:justify-end md:gap-3"
+          >
             <ContactButton href="#contact" />
+            <GhostButton
+              size="sm"
+              href={PERSON.githubUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              github
+              <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+            </GhostButton>
+            <GhostButton
+              size="sm"
+              href={PERSON.linkedinUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              linkedin
+              <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+            </GhostButton>
           </FadeIn>
         </div>
       </div>

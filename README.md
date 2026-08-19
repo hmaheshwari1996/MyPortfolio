@@ -44,7 +44,17 @@ node scripts/capture.mjs http://localhost:5273 ./shots 375 812 "0" "prefers-redu
 It reports console errors, failed subresources and unhandled rejections, so a
 clean run means something.
 
-## Why there are no image files
+## The one real asset
+
+`public/Harshit-Maheshwari-Resume.pdf` is the only file the page does not generate. The nav's
+`resume.pdf` pill links to it with a `download` attribute.
+
+It is rendered **only in the multi-asset build**. The single-file build has no `public/`
+directory, so the link would 404 there and the artifact host's sandbox blocks page-initiated
+downloads anyway — the pill is therefore guarded on `import.meta.env.MODE === 'single'`. If you
+ever see it missing, that is why, and it is deliberate.
+
+## Why there are no other image files
 
 The page ships zero external assets. The hero is a signed-distance-field scene
 raymarched in a fragment shader; the marquee tiles, the corner glyphs and every
