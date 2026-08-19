@@ -1,4 +1,4 @@
-import { Mail, Phone, Link2 } from 'lucide-react'
+import { Mail, Link2 } from 'lucide-react'
 import FadeIn from '../components/FadeIn'
 import { ContactButton } from '../components/Buttons'
 import { PERSON } from '../content/profile'
@@ -6,7 +6,6 @@ import { PERSON } from '../content/profile'
 export default function ContactSection() {
   const links = [
     { icon: Mail, label: PERSON.email, href: `mailto:${PERSON.email}` },
-    { icon: Phone, label: PERSON.phone, href: `tel:+91${PERSON.phone}` },
     { icon: Link2, label: PERSON.linkedin, href: PERSON.linkedinUrl },
   ]
 
@@ -37,7 +36,7 @@ export default function ContactSection() {
       </FadeIn>
 
       <FadeIn delay={0.32} y={20} className="w-full max-w-4xl">
-        <ul className="grid gap-px overflow-hidden rounded-2xl bg-bone/10 sm:grid-cols-3">
+        <ul className="grid gap-px overflow-hidden rounded-2xl bg-bone/10 sm:grid-cols-2">
           {links.map(({ icon: Icon, label, href }) => (
             <li key={href} className="bg-ink">
               <a

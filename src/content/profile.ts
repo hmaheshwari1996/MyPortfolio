@@ -18,7 +18,6 @@ export interface Person {
   /** Short micro-copy under the hero. Rendered uppercase by CSS. */
   heroLine: string;
   email: string;
-  phone: string;
   linkedin: string;
   linkedinUrl: string;
   github: string;
@@ -37,14 +36,11 @@ export const PERSON: Person = {
     'I own products from planning to production, and the AI-first delivery that gets them there.',
   heroLine: 'Product intent in. Shipped, maintained software out.',
   email: 'hmaheshwari1996@gmail.com',
-  phone: '[redacted]',
   linkedin: 'linkedin.com/in/hmaheshwari96',
   linkedinUrl: 'https://www.linkedin.com/in/hmaheshwari96',
   github: 'github.com/hmaheshwari1996',
   githubUrl: 'https://github.com/hmaheshwari1996',
-  // City unconfirmed — the CV states no location. Widened to the country until
-  // Harshit confirms it; set the real city here once known.
-  location: 'India',
+  location: 'Delhi NCR, India',
   resumeUrl: '/Harshit-Maheshwari-Resume.pdf',
   resumeLabel: 'resume.pdf',
 };
